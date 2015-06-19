@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Author: Ni Huang <nihuang at genetics dot wustl dot edu>
+
 from __future__ import print_function
 import sys
 from os.path import splitext
