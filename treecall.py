@@ -562,8 +562,7 @@ def annotate_main(args):
     for node in tree.iter_descendants('postorder'):
         k = gtcall['mut_smpl'] == ','.join(map(str,node.sid))
         node.dist = k.sum()+1
-        #node.dist = np.sqrt(k.sum())+0.1
-    tree.write(outfile=args.output+'.nwk', format=5)
+    tree.write(outfile=args.output, format=5)
 
 
 def read_gtcall(filename):
@@ -907,7 +906,7 @@ if __name__ == '__main__':
 
     parser_annot = subp.add_parser('annot', help='annotate lineage tree with genotype calls')
     parser_annot.add_argument('gtcall', metavar='<gtcall>', type=str, help='input gtype calls, "-" for stdin')
-    parser_annot.add_argument('output', metavar='<output>', type=str, help='output basename')
+    parser_annot.add_argument('output', metavar='<outnwk>', type=str, help='output tree in Newick format')
     parser_annot.add_argument('-t', metavar='FILE', dest='tree', type=str, required=True, help='lineage tree')
     parser_annot.set_defaults(func=annotate_main)
 
