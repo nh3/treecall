@@ -874,7 +874,7 @@ if __name__ == '__main__':
     parser_compare.add_argument('-r', metavar='FILE', dest='ref', type=str, required=True, help='reference tree, in Newick format')
     parser_compare.set_defaults(func=compare_main)
 
-    parser_compat = subp.add_parser('compat', help='filter variants by pairwise compatibility')
+    parser_compat = subp.add_parser('compat', help='calculate pairwise compatibility between all pairs of sites')
     parser_compat.add_argument('vcf', metavar='<vcf>', type=str, help='input vcf/vcf.gz file, "-" for stdin')
     parser_compat.add_argument('output', metavar='<output>', type=str, help='output compatibility matrix')
     parser_compat.add_argument('-v', metavar='INT', dest='min_ev', type=int, default=60, help='minimum evidence in Phred scale for a site to be considered, default 60')
