@@ -10,7 +10,7 @@ positional arguments:
     compare   compare tree topology
     compat    calculate pairwise compatibility between all pairs of sites
     nbjoin    neighbor-joining
-    part      a top-down method that partition samples by sum of partition cost across all sites
+    part      a top-down method that recursively partition samples based on partition cost
     gtype     genotype samples with help of a lineage tree
     annot     annotate lineage tree with genotype calls
 
