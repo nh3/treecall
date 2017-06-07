@@ -2,7 +2,7 @@
 Tree-based joint lineage inference and somatic mutation calling
 
 ## Workflow
-Assume that we start with a set of mutations in the file recallVAF_filtered.vcf.gz
+Assume that we start with a set of mutations in the file `recallVAF_filtered.vcf.gz`
 
 The typical treecall workflow consists of three steps,
 
@@ -149,3 +149,22 @@ optional arguments:
   -h, --help  show this help message and exit
   -t FILE     lineage tree
 ```
+
+## Output files
+
+### gtcall file
+
+The columns in the `*.gtcall` file are as follows,
+
+1. chromosome
+2. position
+3. reference allele
+4. null probability
+5. mutant probability
+6. MLE_null_base_gtype
+7. MLE_null_base_gtype_P
+8. MLE_mut_base_gtype
+9. MLE_mut_alt_gtype
+10. MLE_mut_base_gtype_P
+11. MLE_mut_location
+12. MLE_mut_samples
