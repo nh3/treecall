@@ -52,7 +52,7 @@ class Vcf(object):
         self.POS = fields[1]
         self.ID = fields[2]
         self.REF = fields[3]
-        self.ALT = fields[4].rstrip('<X>').rstrip(',')
+        self.ALT = fields[4].rstrip('<X*>').rstrip(',')
         self.QUAL = fields[5]
         self.FILTER = fields[6]
         self.INFO = fields[7]
