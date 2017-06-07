@@ -6,10 +6,10 @@ Assume that we start with a set of mutations in the file `recallVAF_filtered.vcf
 
 The typical treecall workflow consists of three steps,
 
-1. Infer an initial tree
+1. Infer an initial tree relating the samples
 
 ```
-# Using a neighbor joining approach,
+# Using a neighbor-joining approach,
 python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
 ```
 
@@ -18,7 +18,7 @@ python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
 python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.part
 ```
 
-2. Jointly genotype the variants and generate the consensus tree
+2. Jointly genotype the variants with the help of a lineage tree
 
 ```
 python treecall.py gtype -t recall.partition.nj.nwk \
@@ -27,7 +27,7 @@ python treecall.py gtype -t recall.partition.nj.nwk \
     recall.partition.gtcall
 ```
 
-3. Annotate the variants
+3. Annotate the lineage tree with genotype calls
 
 ```
 python treecall.py annot -t recall.partition.nj.nwk \
@@ -152,6 +152,8 @@ optional arguments:
 
 ## Output files
 
+Some of the output files are explained below,
+
 ### gtcall file
 
 The columns in the `*.gtcall` file are as follows,
@@ -159,8 +161,8 @@ The columns in the `*.gtcall` file are as follows,
 1. chromosome
 2. position
 3. reference allele
-4. null probability
-5. mutant probability
+4. null_P
+5. mut_P
 6. MLE_null_base_gtype
 7. MLE_null_base_gtype_P
 8. MLE_mut_base_gtype
