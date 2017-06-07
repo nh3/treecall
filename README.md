@@ -1,6 +1,43 @@
 # treecall
 Tree-based joint lineage inference and somatic mutation calling
 
+## Workflow
+Assume that we start with a set of mutations in the file `recallVAF_filtered.vcf.gz`
+
+The typical treecall workflow consists of three steps,
+
+1. Infer an initial tree relating the samples
+
+```
+# Using a neighbor-joining approach,
+python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
+```
+
+```
+# Or using a top-down partitioning approach,
+python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.part
+```
+
+2. Jointly genotype the variants with the help of a lineage tree
+
+```
+python treecall.py gtype -t recall.partition.nj.nwk \
+    -m 60 \
+    recallVAF_filtered.vcf.gz \
+    recall.partition.gtcall
+```
+
+3. Annotate the lineage tree with genotype calls
+
+```
+python treecall.py annot -t recall.partition.nj.nwk \
+    recall.partition.gtcall \
+    recall.partition.annotation
+```
+
+More information about the individual commands is below.
+
+## Commands
 ```
 usage: treecall.py [-h] <command> ...
 
@@ -18,7 +55,7 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-## tview
+### tview
 ```
 usage: treecall.py tview [-h] [-a STR] [-l FILE] <nwk>
 
@@ -31,7 +68,7 @@ optional arguments:
   -l FILE     leaves label
 ```
 
-## compare
+### compare
 ```
 usage: treecall.py compare [-h] -t FILE [FILE ...] -r FILE
 
@@ -41,7 +78,7 @@ optional arguments:
   -r FILE             reference tree, in Newick format
 ```
 
-## compat
+### compat
 ```
 usage: treecall.py compat [-h] [-v INT] <vcf> <output>
 
@@ -54,7 +91,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## nbjoin
+### nbjoin
 ```
 usage: treecall.py nbjoin [-h] [-m INT] [-e INT] [-v INT] <vcf> output
 
@@ -69,7 +106,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## part
+### part
 ```
 usage: treecall.py part [-h] [-m INT] [-e INT] [-v INT] <vcf> <output>
 
@@ -84,7 +121,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## gtype
+### gtype
 ```
 usage: treecall.py gtype [-h] -t FILE [-n INT] [-m INT] [-e INT] <vcf> <output>
 
@@ -100,7 +137,7 @@ optional arguments:
   -e INT      heterozygous rate in Phred scale, default 30, 0 for uninformative
 ```
 
-## annot
+### annot
 ```
 usage: treecall.py annot [-h] -t FILE <gtcall> <outnwk>
 
@@ -112,3 +149,24 @@ optional arguments:
   -h, --help  show this help message and exit
   -t FILE     lineage tree
 ```
+
+## Output files
+
+Some of the output files are explained below,
+
+### gtcall file
+
+The columns in the `*.gtcall` file are as follows,
+
+1. chromosome
+2. position
+3. reference allele
+4. null_P
+5. mut_P
+6. MLE_null_base_gtype
+7. MLE_null_base_gtype_P
+8. MLE_mut_base_gtype
+9. MLE_mut_alt_gtype
+10. MLE_mut_base_gtype_P
+11. MLE_mut_location
+12. MLE_mut_samples
