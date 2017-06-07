@@ -8,13 +8,14 @@ The typical treecall workflow consists of three steps,
 
 1. Infer an initial tree
 
+
 ```
+# Using a neighbor joining approach,
 python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
 ```
 
-or
-
 ```
+# Or using a top-down partitioning approach,
 python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
 ```
 
