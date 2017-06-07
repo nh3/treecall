@@ -8,7 +8,6 @@ The typical treecall workflow consists of three steps,
 
 1. Infer an initial tree
 
-
 ```
 # Using a neighbor joining approach,
 python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
@@ -16,10 +15,10 @@ python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
 
 ```
 # Or using a top-down partitioning approach,
-python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
+python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.part
 ```
 
-2. Genotyping the variants and generating the consensus tree
+2. Jointly genotype the variants and generate the consensus tree
 
 ```
 python treecall.py gtype -t recall.partition.nj.nwk \
@@ -28,7 +27,7 @@ python treecall.py gtype -t recall.partition.nj.nwk \
     recall.partition.gtcall
 ```
 
-3. Annotation of variants
+3. Annotate the variants
 
 ```
 python treecall.py annot -t recall.partition.nj.nwk \
@@ -56,7 +55,7 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-## tview
+### tview
 ```
 usage: treecall.py tview [-h] [-a STR] [-l FILE] <nwk>
 
@@ -69,7 +68,7 @@ optional arguments:
   -l FILE     leaves label
 ```
 
-## compare
+### compare
 ```
 usage: treecall.py compare [-h] -t FILE [FILE ...] -r FILE
 
@@ -79,7 +78,7 @@ optional arguments:
   -r FILE             reference tree, in Newick format
 ```
 
-## compat
+### compat
 ```
 usage: treecall.py compat [-h] [-v INT] <vcf> <output>
 
@@ -92,7 +91,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## nbjoin
+### nbjoin
 ```
 usage: treecall.py nbjoin [-h] [-m INT] [-e INT] [-v INT] <vcf> output
 
@@ -107,7 +106,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## part
+### part
 ```
 usage: treecall.py part [-h] [-m INT] [-e INT] [-v INT] <vcf> <output>
 
@@ -122,7 +121,7 @@ optional arguments:
   -v INT      minimum evidence in Phred scale for a site to be considered, default 60
 ```
 
-## gtype
+### gtype
 ```
 usage: treecall.py gtype [-h] -t FILE [-n INT] [-m INT] [-e INT] <vcf> <output>
 
@@ -138,7 +137,7 @@ optional arguments:
   -e INT      heterozygous rate in Phred scale, default 30, 0 for uninformative
 ```
 
-## annot
+### annot
 ```
 usage: treecall.py annot [-h] -t FILE <gtcall> <outnwk>
 
