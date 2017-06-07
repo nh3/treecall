@@ -1,6 +1,43 @@
 # treecall
 Tree-based joint lineage inference and somatic mutation calling
 
+## Workflow
+Assume that we start with a set of mutations in the file recallVAF_filtered.vcf.gz
+
+The typical treecall workflow consists of three steps,
+
+1. Infer an initial tree
+
+```
+python treecall.py nbjoin -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
+```
+
+or
+
+```
+python treecall.py part -m 60 recallVAF_filtered.vcf.gz recall.nbjoin
+```
+
+2. Genotyping the variants and generating the consensus tree
+
+```
+python treecall.py gtype -t recall.partition.nj.nwk \
+    -m 60 \
+    recallVAF_filtered.vcf.gz \
+    recall.partition.gtcall
+```
+
+3. Annotation of variants
+
+```
+python treecall.py annot -t recall.partition.nj.nwk \
+    recall.partition.gtcall \
+    recall.partition.annotation
+```
+
+More information about the individual commands is below.
+
+## Commands
 ```
 usage: treecall.py [-h] <command> ...
 
